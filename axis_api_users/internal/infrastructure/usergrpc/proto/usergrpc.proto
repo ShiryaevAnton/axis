@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package usergrpc;
+
+option go_package = "usergrpcpb";
+
+message User{
+
+    int64 id  = 1;
+    string email = 2;
+    string last_name = 3;
+    string first_name = 4;
+    string status = 5;
+    string job_title = 6;
+    string privilege = 7;   
+    string dob = 8;
+    string photo_url = 9;
+    string data_created = 10;	
+}
+
+message UserSave {
+    string email = 1;
+    string last_name = 2;
+    string first_name = 3;
+    string status = 4;
+    string job_title = 5;
+    string privilege = 6;   
+    string dob = 7;
+    string photo_url = 8;	
+    string password = 9;
+}
+
+message GetUserRequest{
+    string email  = 1;
+}
+
+message GetUserResponse{
+    User user = 1;
+}
+
+message SaveUserRequest{
+    UserSave userSave = 1;
+}
+
+message SaveUserResponse{
+    User user = 1;
+}
+
+message FindByEmailAndPasswordRequest{
+    string email = 1;
+    string password = 2;
+}
+
+message FindByEmailAndPasswordResponse{
+    User user = 1;
+}
+
+message DeleteUserRequest{
+    string email = 1;
+}
+
+message DeleteUserResponse{
+    bool confirmDelete = 1;
+}
+
+message UpdateUserRequest{
+    UserSave userSave = 1;
+    string email = 2;
+}
+
+message UpdateUserResponse{
+    User user = 1;
+}
+
+service UserInterface{
+    rpc GetUser (GetUserRequest) returns (GetUserResponse);
+    rpc SaveUser (SaveUserRequest) returns (SaveUserResponse);
+    rpc FindByEmailAndPassword (FindByEmailAndPasswordRequest) returns(FindByEmailAndPasswordResponse);
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+}
